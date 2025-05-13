@@ -45,7 +45,27 @@
         </div>
     </div>
 
+    <div 
+        x-data="{show: false, message: ''}"
+        x-show.transition.opacity="show"
+        @flash.window="
+            message = $event.detail.message;
+            show = true; 
+            setTimeout(() => show = false, 1000)
+        "
+        class="fixed bottom-0 right-0 bg-green-500 text-white p-2 mb-4 mr-4 rounded"
+    >
+    <span x-text="message" class="pr-4"></span>
+    <button @click="show = false">&times;</button>
+    </div>
+
     <script>
+
+        function flash(message){
+            window.dispatchEvent(new CustomEvent('flash', {
+                detail: {message}
+            }));
+        }
 
         function pause(millisecond = 1000){
             return new Promise(resolve => setTimeout(resolve, millisecond));
@@ -88,6 +108,7 @@
 
                     if(this.flippedCards.length === 2) {
                         if(this.hasMatch()) {
+                            flash('you found a match!');
                             await pause();
                             this.flippedCards.forEach(card => card.cleared = true);
                             if(! this.remainingCards.length){
