@@ -7,3 +7,5 @@ Route::get('/', function () {
 });
 
 Route::view('learning', 'learning');
+
+Route::view('learning2', 'learning2');
