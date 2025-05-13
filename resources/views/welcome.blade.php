@@ -46,6 +46,11 @@
     </div>
 
     <script>
+
+        function pause(millisecond = 1000){
+            return new Promise(resolve => setTimeout(resolve, millisecond));
+        }
+
         function game() {
             return {
                 cards: [
@@ -75,17 +80,21 @@
                     return this.clearedCards.length; 
                 },
 
-                flipCard(card){
+                async flipCard(card){
+                    if(this.flippedCards.length === 2){
+                        return;
+                    }
                     card.flipped = ! card.flipped;
 
                     if(this.flippedCards.length === 2) {
                         if(this.hasMatch()) {
+                            await pause();
                             this.flippedCards.forEach(card => card.cleared = true);
                             if(! this.remainingCards.length){
                                 alert('you won');
                             }
                         }
-
+                        await pause();
                         this.flippedCards.forEach(card => card.flipped = false);
                     }
                 },
