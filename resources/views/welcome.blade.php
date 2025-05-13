@@ -26,16 +26,33 @@
         </div>
     </div>
 
-    <div x-data="{ cards: [{ color: 'green', flipped: false, cleared: false }] }" class="px-10 flex items-center justify-center min-h-screen">
+    <div x-data="game()" class="px-10 flex items-center justify-center min-h-screen">
         <div class="flex-1 grid grid-cols-4 gap-10">
             <template x-for="card in cards">
-                <div :style="'background: ' + (card.flipped ? card.color : '#999')" class="h-32"
+                <div :style="'background: ' + (card.flipped ? card.color : '#999')" class="h-32 cursor-pointer"
                     @click="card.flipped = ! card.flipped">
 
                 </div>
             </template>
         </div>
     </div>
+
+    <script>
+        function game() {
+            return {
+                cards: [
+                    {color: 'green',flipped: false, cleared: false },
+                    {color: 'red',flipped: false, cleared: false },
+                    {color: 'blue',flipped: false, cleared: false },
+                    {color: 'yellow',flipped: false, cleared: false },
+                    {color: 'green',flipped: false, cleared: false },
+                    {color: 'red',flipped: false, cleared: false },
+                    {color: 'blue',flipped: false, cleared: false },
+                    {color: 'yellow',flipped: false, cleared: false },
+                ],
+            };
+        }
+    </script>
 </body>
 
 </html>
